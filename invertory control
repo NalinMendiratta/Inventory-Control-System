@@ -1,0 +1,368 @@
+import java.util.*;
+public class Main
+{
+    int item_No[];
+    String itemName[];
+    int QOH[];
+    double price[];
+    static int i=-1;
+
+    Main()
+    {
+        item_No=new int[100];
+        itemName=new String[100];
+        QOH=new int[100];
+        price=new double[100];
+    }
+
+    void add()
+    {
+        i++;
+        if(i<100)
+        {
+            Scanner sc=new Scanner(System.in);
+            System.out.print("Enter item number: ");
+            int c=0;
+            int t=0;
+            while(true)
+            {
+                t=sc.nextInt();
+                c=0;
+                for(int j=0;j<i;j++)
+                    if(t==item_No[j])
+                        c=1;
+
+                if(c==1)
+                    System.out.print("This number already matches another number, Input again: ");
+                else if(c==0)
+                {
+                    item_No[i]=t;
+                    break;
+                }
+
+            }
+            System.out.print("Enter item name: ");
+            itemName[i]=sc.next();
+            System.out.print("Enter quantity on hand: ");
+            QOH[i]=sc.nextInt();
+            System.out.print("Enter the price of item: ");
+            price[i]=sc.nextDouble();
+
+        }
+    }
+
+    void display()
+    {
+        int it=0;
+        String nt="";
+        int qt=0;
+        double pt=0.0;        
+        for(int j=0;j<i+1;j++)
+        {
+            for(int k=0;k<i-j;k++)
+            {
+                if(item_No[k]>item_No[k+1])
+                {
+                    it=item_No[k];
+                    item_No[k]=item_No[k+1];
+                    item_No[k+1]=it;
+
+                    nt=itemName[k];
+                    itemName[k]=itemName[k+1];
+                    itemName[k+1]=nt;
+
+                    qt=QOH[k];
+                    QOH[k]=QOH[k+1];
+                    QOH[k+1]=qt;
+
+                    pt=price[k];
+                    price[k]=price[k+1];
+                    price[k+1]=pt;
+                }
+            }
+        }
+
+        for(int j=0;j<=i;j++)
+        {
+            System.out.println(item_No[j]+" "+itemName[j]+" "+QOH[j]+" "+price[j]);
+        }
+    }
+
+    void search()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter item number: ");
+        int f=sc.nextInt();
+        int j=0;
+        int c=-1;
+        for(j=0;j<=i;j++)
+        {
+            if(item_No[j]==f)
+            {
+                c=1;
+                break;
+            }
+        }
+        if(c==1)
+        {
+            System.out.println("");
+            System.out.println("Item Number- "+item_No[j]);
+            System.out.println("Item Name- "+itemName[j]);
+            System.out.println("Quantity On Hand- "+QOH[j]);
+            System.out.println("Price- "+price[j]);
+            System.out.println("");
+        }
+        else
+            System.out.println("Item number not found");
+    }
+
+    void edit()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter item number: ");
+        int f=sc.nextInt();
+        int j=0;
+        int d=-1;
+        for(j=0;j<=i;j++)
+        {
+            if(item_No[j]==f)
+            {
+                d=1;
+                break;
+            }
+        }
+        if(d==1)
+        {
+            System.out.println(item_No[j]+" "+itemName[j]+" "+QOH[j]+" "+price[j]);
+            System.out.println("Want to edit(Y/N)");
+            char c=sc.next().charAt(0);
+            int r=0;
+            int t=0;
+            if(c=='Y'||c=='y')
+            {
+                System.out.println("Do you want to update quantity on hand(1),price(2) or both(3)");
+                r=sc.nextInt();
+                switch(r)
+                {
+                    case 1:
+                        System.out.println("Do you want to increase(1) or decrease(2) the quantity");
+                        char g=sc.next().charAt(0);
+                        while(true)
+                        {
+                            if(g=='1')
+                            {
+                                System.out.println("Enter the extra Quantity");
+                                t=sc.nextInt();
+                                while(true)
+                                {
+                                    if(t>0)
+                                    {
+                                        QOH[j]+=t;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        System.out.println("Invalid quantity");
+                                    }
+                                }
+                                break;
+                            }
+                            else if(g=='2')
+                            {
+                                System.out.println("Enter the Quantity to be removed");
+                                t=sc.nextInt();
+                                while(true)
+                                {
+                                    if(t>0)
+                                    {
+                                        QOH[j]-=t;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        System.out.println("Invalid quantity");
+                                    }
+                                }
+                                break;
+                            }
+                            else
+                                System.out.println("INVALID INPUT, please choose either 1 or 2");
+                        }
+                        break;
+                    case 2:
+                        System.out.println("Enter new Price");
+                        price[j]=sc.nextDouble();
+                        break;
+                    case 3:
+                        System.out.println("Do you want to increase(1) or decrease(2) the quantity");
+                        char g1=sc.next().charAt(0);
+                        while(true)
+                        {
+                            if(g1=='1')
+                            {
+                                System.out.println("Enter the extra Quantity");
+                                t=sc.nextInt();
+                                while(true)
+                                {
+                                    if(t>0)
+                                    {
+                                        QOH[j]+=t;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        System.out.println("Invalid quantity");
+                                    }
+                                }
+                                break;
+                            }
+                            else if(g1=='2')
+                            {
+                                System.out.println("Enter the Quantity to be removed");
+                                t=sc.nextInt();
+                                while(true)
+                                {
+                                    if(t>0)
+                                    {
+                                        QOH[j]-=t;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        System.out.println("Invalid quantity");
+                                    }
+                                }
+                                break;
+                            }
+                            else
+                                System.out.println("INVALID INPUT, please choose either 1 or 2");
+                        }
+                        System.out.println("Enter new Price");
+                        price[j]=sc.nextDouble();
+                        break;
+                    default:
+                        System.out.println("Invalid input");
+                }
+            }
+            if(c=='Y'||c=='y')
+            {
+                System.out.println("");
+                System.out.println("After changes:");
+                System.out.println("Item Number- "+item_No[j]);
+                System.out.println("Item Name- "+itemName[j]);
+                System.out.println("Quantity On Hand- "+QOH[j]);
+                System.out.println("Price- "+price[j]);
+                System.out.println("");
+            }
+        }
+        else
+            System.out.println("Item number not found");
+    }
+
+    void Delete()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter item number of the item to be removed");
+        int f=sc.nextInt();
+        int temp=f;
+        int j=0;
+        int d=-1;
+        for(j=0;j<=i;j++)
+        {
+            if(item_No[j]==f)
+            {
+                d=1;
+                break;
+            }
+        }
+        if(d==1)
+        {
+            System.out.println(item_No[j]+" "+itemName[j]+" "+QOH[j]+" "+price[j]);
+            System.out.println("Are you sure you want to remove this item?(Y/N)");
+            char c=sc.next().charAt(0);
+            if(c=='y'||c=='Y')
+            {
+                int pos=-1;
+                for(int k=0;k<=i;k++)
+                {
+                    if(item_No[k]==temp)
+                    {
+                        pos=k;
+                        break;
+                    }
+                }
+                if(pos==0)
+                {
+                    for(int k=pos;k<=i-1;k++)
+                    {
+                        item_No[k]=item_No[k+1];
+                        itemName[k]=itemName[k+1];
+                        QOH[k]=QOH[k+1];
+                        price[k]=price[k+1];
+                    }
+                    i--;
+                }
+                else if(pos==i)
+                {
+                    i--;
+                }
+                else
+                {
+                    for(int k=pos;k<i-1;k++)
+                    {
+                        item_No[k]=item_No[k+1];
+                        itemName[k]=itemName[k+1];
+                        QOH[k]=QOH[k+1];
+                        price[k]=price[k+1];
+                    }
+                    i--;
+                }
+            }
+            else
+                System.out.println("Item number not found");
+        }
+    }
+
+    void menu()
+    {
+        System.out.println("");
+        System.out.println("MENU");
+        System.out.println("1.Add item");
+        System.out.println("2.Display all");
+        System.out.println("3.Search item");
+        System.out.println("4.Edit item");
+        System.out.println("5.Delete item");
+        System.out.println("6.exit");
+        System.out.println("Enter choice(1-6):");
+        System.out.println("");
+    }
+
+    public static void main(String args[])
+    {
+        Scanner sc=new Scanner(System.in);
+        Main obj=new Main();
+        while(true)
+        {
+            obj.menu();
+            char ch=sc.next().charAt(0);
+            if(ch=='6')
+            {
+                System.exit(0);
+            }
+            switch(ch)
+            {
+                case '1':obj.add();
+                    break;
+                case '2':obj.display();
+                    break;
+                case '3':obj.search();
+                    break;
+                case '4':obj.edit();
+                    break;
+                case '5':obj.Delete();
+                    break;
+                default:System.out.println("Invalid choice");
+            }
+        }
+    }
+}
